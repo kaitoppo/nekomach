@@ -1,0 +1,2 @@
+class PostMachineko < ApplicationRecord
+end
