@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  #退会済みの会員がログインできないようにする
   before_action :end_user_state, only: [:create]
-  
+
   protected
+
   #退会しているかを判断するメソッド
   def end_user_state
     ## 【処理内容1】 入力されたemailからアカウントを1件取得
