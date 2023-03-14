@@ -1,11 +1,17 @@
-<!--<h2>新規まちねこ投稿</h2>-->
-  <%#= form_with model: @post_machineko do |f| do %>
-    <!--<h4>■画像・動画選択</h4>-->
-      <%#= f.file_field :image, accept: "image/*" %>
-    <!--<h4>■キャプション</h4>-->
-      <%#= f.file_field :image, accept: "image/*" %>
-    <!--<h4>■撮影場所をクリック</h4>-->
-
+<h2>新規まちねこ投稿</h2>
+  <%= form_with model: @post_machineko, url: post_machinekoes_path, method: :post do |f| %>
+    <div class="action">
+      <%= f.label :image,"画像・動画選択" %><br>
+        <%= f.file_field :image, accept: "image/*" %><br>
+      <%= f.label :caption,"キャプション" %><br>
+        <%= f.text_field :caption %><br>
+      <%= f.label :shot_address,"撮影場所（マップをクリック）" %><br>
+        <%= f.text_field :shot_address %><br>
+        <%= f.text_field :latitude, :value =>"緯度", id: :lat %>
+        <%= f.text_field :longitude, :value =>"経度", id: :lng %>
+      <%= f.submit %>
+    </div>
+  <% end %>
 
 <!--地名検索フォーム-->
 <input id="address" type="textbox" value="GeekSalon">
@@ -17,53 +23,62 @@
  <!--Google MAPを表示させる-->
  <div id='map'></div>
 
- <style>
-   #map {
-     height: 600px;
-     width: 600px;
-   }
- </style>
+<style>
+#map {
+  height: 600px;
+  width: 600px;
+}
+</style>
 
  <script>
-   let map
-   let geocoder
-  // ディスプレイの情報を取得
-   const display = document.getElementById('display')
+ //初期MAP画面設定
+let map
+let marker
+function initMap(){
+  geocoder = new google.maps.Geocoder()
 
-   function initMap(){
-     geocoder = new google.maps.Geocoder()
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.6803997, lng:139.7690174},
+    zoom: 15,
+  });
+}
 
-     map = new google.maps.Map(document.getElementById('map'),{
-       center: {lat: 40.7828, lng:-73.9653},
-       zoom: 12,
-     });
-
-     marker = new google.maps.Marker({
-       position: {lat: 40.7828, lng:-73.9653},
-       map: map
-     });
-   }
-
-  // 検索入力後の動き
-  function codeAddress(){
-    let inputAddress = document.getElementById('address').value;
-
-    geocoder.geocode( { 'address': inputAddress}, function(results, status){
-      // 検索結果がヒットした時、地図の中心を検索結果の緯度経度に更新する
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var maker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-        // 検索結果をディスプレイに表示
-        display.textContent = "検索結果：" + results[0].geometry.location
-      } else {
-        // 検索結果が何もなかった場合
-          alert('該当する結果がありませんでした：' + status);
+//検索後のマップ作成
+let geocoder
+let aft
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      //マーカーの複数NG
+      if (aft == true) {
+        marker.setMap(null);
       }
-    });
-  }
-</script>
+      //新規マーカーを作成
+      map.setCenter(results[0].geometry.location);
+          marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          draggable: true // ドラッグ可能にする
+      });
 
+      //二度目以降かチェック
+      aft =true
+
+      //検索した時に緯度経度を入力
+      document.getElementById('lat').value = results[ 0 ].geometry.location.lat();
+      document.getElementById('lng').value = results[ 0 ].geometry.location.lng();
+
+      // マーカーのドラッグ終了時のイベント
+      google.maps.event.addListener( marker, 'dragend', function(ev){
+        // 引数evの、プロパティ.latLngが緯度経度
+        document.getElementById('lat').value = ev.LatLng.location.lat();
+        document.getElementById('lng').value = ev.LatLng.location.lng();
+      });
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });
+}
+</script>
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5aZ70YDPodKan3IgeSoFl6poNckDBbg&callback=initMap" async defer></script>

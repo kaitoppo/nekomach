@@ -17,6 +17,6 @@ class Public::PostMachinekoesController < ApplicationController
   private
   
   def post_machineko_params
-    params.require(:post_machineko).premit(:shot_address, :caption, :image)
+    params.require(:post_machineko).permit(:shot_address, :caption, :image,:latitude, :longitude)
   end
 end
