@@ -14,6 +14,14 @@ class Public::PostMachinekoesController < ApplicationController
     end
   end  
   
+  def index
+    @post_machinekoes = PostMachineko.all
+  end
+  
+  def map 
+    @post_machinekoes = PostMachineko.all
+  end
+  
   private
   
   def post_machineko_params

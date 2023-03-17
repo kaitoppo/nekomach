@@ -14,7 +14,7 @@
   <% end %>
 
 <!--地名検索フォーム-->
-<input id="address" type="textbox" value="GeekSalon">
+<input id="address" type="textbox" value="東京駅">
 <input type="button" value="Encode" onclick="codeAddress()">
 
 <!--検索結果を表示させるためのディスプレイ-->
@@ -26,7 +26,7 @@
 <style>
 #map {
   height: 600px;
-  width: 600px;
+  width: 100%;
 }
 </style>
 
@@ -72,8 +72,8 @@ function codeAddress(){
       // マーカーのドラッグ終了時のイベント
       google.maps.event.addListener( marker, 'dragend', function(ev){
         // 引数evの、プロパティ.latLngが緯度経度
-        document.getElementById('lat').value = ev.LatLng.location.lat();
-        document.getElementById('lng').value = ev.LatLng.location.lng();
+        document.getElementById('lat').value = ev.latLng.lat();
+        document.getElementById('lng').value = ev.latLng.lng();
       });
     } else {
       alert('該当する結果がありませんでした：' + status);
@@ -81,4 +81,4 @@ function codeAddress(){
   });
 }
 </script>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5aZ70YDPodKan3IgeSoFl6poNckDBbg&callback=initMap" async defer></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAP_API_KEY'] %>&callback=initMap" async defer></script>
