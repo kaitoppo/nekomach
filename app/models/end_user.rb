@@ -5,4 +5,10 @@ class EndUser < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_many :post_machinekoes, dependent: :destroy
+  
+  has_one_attached :profile_image
+  
+  def get_profile_image
+    profile_image.variant(resize_to_limit: [100, 100]).processed
+  end
 end

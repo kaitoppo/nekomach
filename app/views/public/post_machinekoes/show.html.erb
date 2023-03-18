@@ -1,1 +1,9 @@
 <h2>まちねこ投稿</h2>
+<div>
+  <%= image_tag @post_machineko.get_image %>
+  <p><%= image_tag @post_machineko.end_user.get_profile_image %></p>
+  <p><%= @post_machineko.end_user.nick_name %></p>
+  <p><%= @post_machineko.caption %></p>
+  <p><%= @post_machineko.shot_address %></p>
+  <p>投稿日時：<%= @post_machineko.created_at.strftime('%Y/%m/%d') %></p>
+</div>

@@ -10,61 +10,63 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
-      <nav class='navbar-collapse justify-content-center' >
-        <h2 class='ml-5'>
-          <% if admin_signed_in? %>
-            <%= link_to 'ねこまち', admin_root_path, class:'text-light' %>
-          <% else %>
-            <%= link_to 'ねこまち', root_path, class:'text-light' %>
-          <% end %>
-        </h2>
-        <div class='collapse navbar-collapse flex-column order-md-last align-items-end mr-5' >
-          <ul class='nav navbar-nav ml-aut'>
-            <% if end_user_signed_in? %>
-            <!--顧客がログインしているとき-->
-              <li>
-                <%= link_to end_users_my_page_path, class:'light' do %>
-                  マイページ
-                <% end %>
-              </li>
-              <li>
-                <%= link_to destroy_end_user_session_path, method: :delete, class:'nav-link text-light' do %>
-                  ログアウト
-                <% end %>
-              </li>
-              <li>
-                <%= current_end_user.nick_name %>
-              </li>
-
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <h2 class='ml-5'>
+            <% if admin_signed_in? %>
+              <%= link_to 'ねこまち', admin_root_path, class:'nav-link text-dark' %>
             <% else %>
-              <!--ログインしていないとき-->
-              <li>
-                <%= link_to new_end_user_registration_path, class:'light' do %>
-                  新規登録
-                <% end %>
-              </li>
-              <li>
-                <%= link_to new_end_user_session_path, class:'light' do %>
-                  ログイン
-                <% end %>
-              </li>
-              <li>
-                ゲストユーザー
-              </li>
+              <%= link_to 'ねこまち', root_path, class:'nav-link text-dark' %>
             <% end %>
-            <%# elsif admin_signed_in? %>
-            <!--管理者がログインしているとき-->
-            <!--<li>-->
-              <%#= link_to destroy_end_user_session_path, method: :delete, class:'nav-link text-light' do %>
-            <!--    ログアウト-->
-              <%# end %>
-            <!--</li>-->
-          </ul>
+          </h2>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if end_user_signed_in? %>
+                <!--顧客がログインしているとき-->
+                  <li class="nav-item">
+                    <%= link_to end_users_my_page_path, class:'nav-link text-dark' do %>
+                      マイページ
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to destroy_end_user_session_path, method: :delete, class:'nav-link text-dark' do %>
+                      ログアウト
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= current_end_user.nick_name %>
+                  </li>
+    
+                <% else %>
+                  <!--ログインしていないとき-->
+                  <li class="nav-item">
+                    <%= link_to new_end_user_registration_path, class:'nav-link text-dark' do %>
+                      新規登録
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_end_user_session_path, class:'nav-link text-dark' do %>
+                      ログイン
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    ゲストユーザー
+                  </li>
+                <% end %>
+            </ul>
+          </div>
         </div>
       </nav>
     </header>
+    
+    <main class="mb-auto">
     <%= yield %>
+    </main>
+  
   </body>
 </html>

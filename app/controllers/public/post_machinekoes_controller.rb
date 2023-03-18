@@ -18,6 +18,10 @@ class Public::PostMachinekoesController < ApplicationController
     @post_machinekoes = PostMachineko.all
   end
   
+  def show
+    @post_machineko = PostMachineko.find(params[:id])
+  end
+  
   def map 
     @post_machinekoes = PostMachineko.all
   end
