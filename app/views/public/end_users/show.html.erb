@@ -1,2 +1,15 @@
-<h1>Public::EndUsers#show</h1>
-<p>Find me in app/views/public/end_users/show.html.erb</p>
+<h2>My Page</h2>
+<%= link_to "プロフィール編集", end_users_information_edit_path(@end_user) %>
+<% @post_machinekoes.each do |post_machineko| %>
+<div>
+  <%= link_to post_machineko_path(post_machineko.id) do %>
+    <%= image_tag post_machineko.get_image %>
+  <% end %>
+  <p><%= image_tag post_machineko.end_user.get_profile_image %></p>
+  <p><%= post_machineko.end_user.nick_name %></p>
+  <p><%= post_machineko.caption %></p>
+  <p><%= post_machineko.shot_address %></p>
+  <p>投稿日時：<%= post_machineko.created_at.strftime('%Y/%m/%d') %></p>
+  <p><%= link_to "#{post_machineko.post_comments.count} コメント", post_machineko_path(post_machineko.id) %></p>
+</div>
+<% end %>

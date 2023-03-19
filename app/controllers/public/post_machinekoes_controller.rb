@@ -14,12 +14,19 @@ class Public::PostMachinekoesController < ApplicationController
     end
   end  
   
+  def destroy
+    post_machineko = PostMachineko.find(params[:id])
+    post_machineko.destroy
+    redirect_to post_machinekoes_path
+  end
+  
   def index
     @post_machinekoes = PostMachineko.all
   end
   
   def show
     @post_machineko = PostMachineko.find(params[:id])
+    @post_comment = PostComment.new
   end
   
   def map 

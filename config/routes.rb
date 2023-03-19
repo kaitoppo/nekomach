@@ -14,7 +14,9 @@ Rails.application.routes.draw do
       patch 'end_users/information' => "end_users#update"
       get 'end_users/withdrawal_check' => "end_users#withdrawal_check"
       patch 'end_users/withdrawal' => "end_users#withdrawal"
-      resources :post_machinekoes
+      resources :post_machinekoes do
+        resources :post_comments, only: [:create, :destroy]
+      end
     end
 
 
