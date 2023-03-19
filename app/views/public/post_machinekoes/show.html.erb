@@ -11,6 +11,20 @@
     <%= link_to "削除", post_machineko_path(@post_machineko), method: :delete %>
     <%= link_to "編集",  edit_post_machineko_path(@post_machineko) %>
   <% end %>
+  <!--いいね機能-->
+  <% if @post_machineko.favorited_by?(current_end_user) %>
+    <p>
+      <%= link_to post_machineko_favorites_path(@post_machineko), method: :delete  do %>
+        ♥<%= @post_machineko.favorites.count %>いいね
+      <% end %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to post_machineko_favorites_path(@post_machineko), method: :post  do %>
+        ♡<%= @post_machineko.favorites.count %>いいね 
+      <% end %>
+    </p>
+  <% end %>
 </div>
 
 <!--コメントフォーム-->
