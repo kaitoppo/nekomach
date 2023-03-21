@@ -12,8 +12,8 @@ Rails.application.routes.draw do
       get 'end_users/my_page' => "end_users#show"
       get 'end_users/information/edit' => "end_users#edit"
       patch 'end_users/information' => "end_users#update"
-      get 'end_users/withdrawal_check' => "end_users#withdrawal_check"
-      patch 'end_users/withdrawal' => "end_users#withdrawal"
+      get 'end_users/destroy_check' => "end_users#destroy_check"
+      delete 'end_users/destroy' => "end_users#destroy"
       resources :post_machinekoes do
         resource :favorites, only: [:create, :destroy]
         resources :post_comments, only: [:create, :destroy]
@@ -25,5 +25,8 @@ Rails.application.routes.draw do
   devise_for :admins,skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
-
-end
+    namespace :admin do
+      resources :post_machinekoes, only: [:index, :new, :create, :show, :edit]
+      get 'post_machinekoes/matchineko_search'
+    end
+  end

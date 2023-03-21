@@ -7,7 +7,7 @@
   <p><%= @post_machineko.caption %></p>
   <p><%= @post_machineko.shot_address %></p>
   <p>投稿日時：<%= @post_machineko.created_at.strftime('%Y/%m/%d') %></p>
-  <% if @post_machineko.end_user == current_end_user %>
+  <% if @post_machineko.end_user == current_end_user || admin_signed_in? %>
     <%= link_to "削除", post_machineko_path(@post_machineko), method: :delete %>
     <%= link_to "編集",  edit_post_machineko_path(@post_machineko) %>
   <% end %>
@@ -21,7 +21,7 @@
   <% else %>
     <p>
       <%= link_to post_machineko_favorites_path(@post_machineko), method: :post  do %>
-        ♡<%= @post_machineko.favorites.count %>いいね 
+        ♡<%= @post_machineko.favorites.count %>いいね
       <% end %>
     </p>
   <% end %>
@@ -34,6 +34,9 @@
     <p><%= image_tag post_comment.end_user.get_profile_image %></p>
     <%= post_comment.end_user.nick_name %>
     <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <% if post_comment.end_user == current_end_user || admin_signed_in? %>
+      <%= link_to "削除", post_machineko_post_comment_path(post_comment), method: :delete %>
+    <% end %>
   <% end %>
 </div>
 <div>
