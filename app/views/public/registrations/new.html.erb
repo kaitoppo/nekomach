@@ -1,8 +1,10 @@
+<!--退会済アカウントのアナウンス-->
+<%= flash[:notice] %>
+
 <h2>新規ユーザー登録</h2>
 
 <%= form_with model: @end_user, url: end_user_registration_path do |f| %>
   <%= render "public/shared/error_messages", resource: resource %>
-
   <div class="field">
     <%= f.label :（姓） %>
     <%= f.text_field :last_name, autofocus: true %>

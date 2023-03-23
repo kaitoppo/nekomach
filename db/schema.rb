@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2023_03_11_133726) do
     t.integer "post_machineko_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["end_user_id", "post_machineko_id"], name: "index_favorites_on_end_user_id_and_post_machineko_id", unique: true
   end
 
   create_table "post_comments", force: :cascade do |t|

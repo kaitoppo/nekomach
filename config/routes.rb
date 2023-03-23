@@ -12,8 +12,8 @@ Rails.application.routes.draw do
       get 'end_users/my_page' => "end_users#show"
       get 'end_users/information/edit' => "end_users#edit"
       patch 'end_users/information' => "end_users#update"
-      get 'end_users/destroy_check' => "end_users#destroy_check"
-      delete 'end_users/destroy' => "end_users#destroy"
+      get 'end_users/withdrawal_check' => "end_users#withdrawal_check"
+      patch 'end_users/withdrawal' => "end_users#withdrawal"
       resources :post_machinekoes do
         resource :favorites, only: [:create, :destroy]
         resources :post_comments, only: [:create, :destroy]
@@ -22,11 +22,14 @@ Rails.application.routes.draw do
 
 
   #管理者側
-  devise_for :admins,skip: [:registrations, :passwords], controllers: {
+  devise_for :admin,skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
     namespace :admin do
+      root to: "end_users#index"
       resources :post_machinekoes, only: [:index, :new, :create, :show, :edit]
+      resources :post_comments, only: [:index, :destroy]
       get 'post_machinekoes/matchineko_search'
+      resources :end_users, only: [:index, :show, :edit, :update]
     end
   end

@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2><%= @end_user.last_name %><%= @end_user.fast_name %>さんの会員情報編集</h2>
+            <%= form_with model: @end_user, url: admin_end_user_path(@end_user),method: :patch, local:true do |f| %>
+                <table class="table">
+                    <tr>
+                        <th>ユーザーID</th>
+                        <td><%= @end_user.id %></td>
+                    </tr>
+                    <tr>
+                        <th><%= f.label :氏名 %></th>
+                        <td><%= f.text_field :last_name %></td>
+                        <td><%= f.text_field :fast_name %></td>
+                    </tr>
+                    <tr>
+                        <th><%= f.label :電話番号 %></th>
+                        <td><%= f.text_field :telephone_number %></td>
+                    </tr>
+                    <tr>
+                        <th><%= f.label :メールアドレス %></th>
+                        <td><%= f.text_field :email %></td>
+                    </tr>
+                    <tr>
+                        <th><%= f.label :ステータス %></th>
+                        <td>
+                            <%= f.radio_button :is_deleted, false %>
+                            <%= f.label :is_deleted, '有効', value: false %>
+                            <%= f.radio_button :is_deleted, true %>
+                            <%= f.label :is_deleted, '退会', value: true %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th><%= f.submit "変更を保存", class:'btn btn-success mb-2' %></th>
+                    </tr>
+                </table>
+            <% end %>
+        </div>
+    </div>
+</div>

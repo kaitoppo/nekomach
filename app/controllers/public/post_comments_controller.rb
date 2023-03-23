@@ -1,4 +1,5 @@
 class Public::PostCommentsController < ApplicationController
+  before_action :authenticate_end_user!
   def create
     post_machineko = PostMachineko.find(params[:post_machineko_id])
     comment = current_end_user.post_comments.new(post_comment_params)

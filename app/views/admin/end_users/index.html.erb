@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>ユーザー一覧</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ユーザーID</th>   
+              <th>登録日</th>
+              <th>ユーザー名</th>
+              <th>ステータス</th>
+            </tr>
+          </thead>
+                        
+          <tbody>
+            <% @end_users.each do |end_user| %>
+            <tr>
+                <th><%= end_user.id %></th>
+                <th>
+                  <%= end_user.created_at.strftime('%Y/%m/%d') %>
+                </th>
+                <th>
+                  <%= link_to admin_end_user_path(end_user) do %>
+                    <%= end_user.last_name %><%= end_user.fast_name %>
+                  <% end %>
+                </th>
+                <th><%= end_user.is_deleted ? '退会' : '有効' %></th>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+          <%#= paginate @customers %>
+        </div>
+    </div>
+</div>

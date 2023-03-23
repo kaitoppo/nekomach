@@ -27,7 +27,7 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
               <% if end_user_signed_in? %>
-                <!--顧客がログインしているとき-->
+                <!--エンドユーザーがログインしているとき-->
                   <li class="nav-item">
                     <%= link_to end_users_my_page_path, class:'nav-link text-dark' do %>
                       マイページ
@@ -41,7 +41,32 @@
                   <li class="nav-item">
                     <%= current_end_user.nick_name %>
                   </li>
-    
+
+              <% elsif admin_signed_in? %>
+              　<!--管理者がログインしているとき-->
+                  <li class="nav-item">
+                    <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-dark' do %>
+                      ログアウト
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to admin_end_users_path, class:'nav-link text-dark' do %>
+                      ユーザ一覧
+                   <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to admin_root_path, class: 'nav-link text-dark' do %>
+                      まちねこ一覧
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                   <%= link_to admin_post_comments_path, class:'nav-link text-dark' do%>
+                     コメント一覧
+                   <% end %>
+                  </li>
+                  <li class="nav-item">
+                    管理者アカウント
+                  </li>
                 <% else %>
                   <!--ログインしていないとき-->
                   <li class="nav-item">
@@ -63,10 +88,10 @@
         </div>
       </nav>
     </header>
-    
+
     <main class="mb-auto">
     <%= yield %>
     </main>
-  
+
   </body>
 </html>
