@@ -1,36 +1,4 @@
 <h2>まちねこ一覧（root_path）</h2>
-<% @post_machinekoes.each do |post_machineko| %>
-<div>
-  <% if post_machineko.end_user.is_deleted == false %>
-    <%= link_to post_machineko_path(post_machineko.id) do %>
-      <%= image_tag post_machineko.get_image %>
-    <% end %>
-    <p><%= image_tag post_machineko.end_user.get_profile_image %></p>
-    <p><%= post_machineko.end_user.nick_name %></p>
-    <p><%= post_machineko.caption %></p>
-    <p><%= post_machineko.shot_address %></p>
-    <p>投稿日時：<%= post_machineko.created_at.strftime('%Y/%m/%d') %></p>
-    <!--管理者のみ一覧から削除可能-->
-    <% if admin_signed_in? %>
-     <%= link_to "削除", post_machineko_path(post_machineko), method: :delete %>
-    <% end %> 
-    
-    <p><%= link_to "#{post_machineko.post_comments.count} コメント", post_machineko_path(post_machineko.id) %></p>
-    <% if current_end_user %>
-      <% if post_machineko.favorited_by?(current_end_user) %>
-        <p>
-          <%= link_to post_machineko_favorites_path(post_machineko), method: :delete  do %>
-            ♥<%= post_machineko.favorites.count %>いいね
-          <% end %>
-        </p>
-      <% else %>
-        <p>
-          <%= link_to post_machineko_favorites_path(post_machineko), method: :post  do %>
-            ♡<%= post_machineko.favorites.count %>いいね 
-          <% end %>
-        </p>
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
-<% end %>
+
+<!--まちねこ一覧部分テンプレート-->
+<%= render 'public/end_users/list', post_machinekoes: @post_machinekoes %>

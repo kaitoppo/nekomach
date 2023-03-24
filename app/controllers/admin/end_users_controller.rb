@@ -5,6 +5,7 @@ class Admin::EndUsersController < ApplicationController
 
   def show
     @end_user = EndUser.find(params[:id])
+    @post_machinekoes = @end_user.post_machinekoes
   end
 
   def edit
