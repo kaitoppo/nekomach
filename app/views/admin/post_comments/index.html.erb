@@ -29,11 +29,11 @@
               </tr>
               <tr bgcolor="#fff8dc" >
                 <th>コメントID：<%= post_comment.id %></th>
-                <th><%= post_comment.comment %></th>
-                <th></th>
+                <th>本文：[<%= post_comment.comment %>]</th>
+                <th><%= link_to "コメント削除", admin_post_comment_path(post_comment), class:'btn btn-danger mb-2 mx-2 px-4', method: :delete %></th>
                 <th><%= link_to "コメント元の投稿",admin_post_machineko_path(post_comment.post_machineko) %></th>
               </tr>
-              
+
             </tr>
             <% end %>
           </tbody>

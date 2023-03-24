@@ -30,6 +30,15 @@ class Public::PostMachinekoesController < ApplicationController
     @post_comment = PostComment.new
   end
   
+  def search
+    if params[:keyword].present?
+      @post_machinekoes = PostMachineko.where('caption like ? ', "%#{params[:keyword]}%").or(PostMachineko.where('shot_address like ? ', "%#{params[:keyword]}%"))
+      @keyword = params[:keyword]
+    else
+      @post_machinekoes = PostMachineko.all
+    end
+  end
+    
   def map 
     @post_machinekoes = PostMachineko.all
   end

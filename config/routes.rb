@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: "public/sessions"
   }
-
     scope module: :public do
       root to: "post_machinekoes#index"
       get 'post_machinekoes/map' => "post_machinekoes#map"
@@ -14,9 +13,14 @@ Rails.application.routes.draw do
       patch 'end_users/information' => "end_users#update"
       get 'end_users/withdrawal_check' => "end_users#withdrawal_check"
       patch 'end_users/withdrawal' => "end_users#withdrawal"
+      get 'favorites/my_favorites' => "favorites#index"
+      
       resources :post_machinekoes do
         resource :favorites, only: [:create, :destroy]
         resources :post_comments, only: [:create, :destroy]
+        collection do
+          get 'search'
+        end  
       end
     end
 

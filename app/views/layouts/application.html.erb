@@ -26,22 +26,28 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
+               <!--エンドユーザーがログインしているとき-->
               <% if end_user_signed_in? %>
-                <!--エンドユーザーがログインしているとき-->
-                  <li class="nav-item">
-                    <%= link_to end_users_my_page_path, class:'nav-link text-dark' do %>
-                      マイページ
-                    <% end %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to destroy_end_user_session_path, method: :delete, class:'nav-link text-dark' do %>
-                      ログアウト
-                    <% end %>
-                  </li>
-                  <li class="nav-item">
-                    <%= current_end_user.nick_name %>
-                  </li>
-
+                <li class="nav-item">
+                  <%= form_with url: search_post_machinekoes_path, method: :get do |f| %>
+                    <%= f.text_field :keyword %>
+                    <%= f.submit "検索" %>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to end_users_my_page_path, class:'nav-link text-dark' do %>
+                    マイページ
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_end_user_session_path, method: :delete, class:'nav-link text-dark' do %>
+                    ログアウト
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= current_end_user.nick_name %>
+                </li>
+                
               <% elsif admin_signed_in? %>
               　<!--管理者がログインしているとき-->
                   <li class="nav-item">

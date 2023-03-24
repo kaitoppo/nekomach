@@ -7,22 +7,7 @@
   <p><%= @post_machineko.caption %></p>
   <p><%= @post_machineko.shot_address %></p>
   <p>投稿日時：<%= @post_machineko.created_at.strftime('%Y/%m/%d') %></p>
-  <p><%= link_to "削除", post_machineko_path(@post_machineko), method: :delete %></p>
-  <% end %>
-  <!--いいね機能-->
-  <% if @post_machineko.favorited_by?(current_end_user) %>
-    <p>
-      <%= link_to post_machineko_favorites_path(@post_machineko), method: :delete  do %>
-        ♥<%= @post_machineko.favorites.count %>いいね
-      <% end %>
-    </p>
-  <% else %>
-    <p>
-      <%= link_to post_machineko_favorites_path(@post_machineko), method: :post  do %>
-        ♡<%= @post_machineko.favorites.count %>いいね
-      <% end %>
-    </p>
-  <% end %>
+  <p><%= @post_machineko.favorites.count %>いいね</p>
 </div>
 <!--コメントフォーム-->
 <div>
@@ -32,9 +17,6 @@
       <p><%= image_tag post_comment.end_user.get_profile_image %></p>
       <%= post_comment.end_user.nick_name %>
       <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-      <% if post_comment.end_user == current_end_user %>
-        <%= link_to "削除", post_machineko_post_comment_path(post_comment.post_machineko, post_comment), method: :delete %>
-      <% end %>
     <% end %>
   <% end %>
 </div>

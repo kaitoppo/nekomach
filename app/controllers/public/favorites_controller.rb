@@ -12,4 +12,9 @@ class Public::FavoritesController < ApplicationController
     favorite.destroy if favorite
     redirect_to request.referer #同じページへ遷移
   end
+  
+  def index 
+    favorites = Favorite.where(end_user_id: current_end_user.id).pluck(:post_machineko_id)
+    @post_machinekoes = PostMachineko.find(favorites)
+  end
 end
