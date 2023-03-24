@@ -5,17 +5,13 @@
         <%= f.file_field :image, accept: "image/*" %><br>
       <%= f.label :caption,"キャプション" %><br>
         <%= f.text_field :caption %><br>
-      <%= f.label :shot_address,"撮影場所（マップをクリック）" %><br>
-        <%= f.text_field :shot_address %><br>
+      <%= f.label :shot_address,"撮影場所" %><br>
+        <%= f.text_field :shot_address, placeholder: "例：〇〇駅の近く" %><br>
         <%= f.text_field :latitude, :value =>"緯度", id: :lat %>
         <%= f.text_field :longitude, :value =>"経度", id: :lng %>
       <%= f.submit %>
     </div>
   <% end %>
-
-<!--地名検索フォーム-->
-<input id="address" type="textbox" value="東京駅">
-<input type="button" value="Encode" onclick="codeAddress()">
 
 <!--検索結果を表示させるためのディスプレイ-->
 <div id="display"></div>
