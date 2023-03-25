@@ -47,3 +47,40 @@
     <%= f.submit "送信する" %>
   <% end %>
 </div>
+
+<!--地図情報-->
+
+<div id='map'></div>
+
+<style>
+#map {
+  height: 300px;
+  width: 400px;
+}
+</style>
+
+<script>
+  let map
+  
+  function initMap(){
+    geocoder = new google.maps.Geocoder()
+    var test ={lat: <%= @post_machineko.latitude %>, lng: <%= @post_machineko.longitude %>};
+  
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: test,
+      zoom: 15,
+    });
+
+    var contentString = '住所：<%= @post_machineko.shot_address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+  
+    marker = new google.maps.Marker({
+      position:  test,
+      map: map,
+      title: contentString
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOURAPIKEY&callback=initMap" async defer></script>

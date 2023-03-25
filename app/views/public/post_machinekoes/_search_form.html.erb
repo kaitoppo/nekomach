@@ -6,12 +6,6 @@
       <%= f.submit "検索" %>
     <% end %>
   </li>
-<% elsif current_page?(new_post_machineko_path) %>
-<!--地名検索-->
-  <li class="nav-item">
-    <input id="address" type="textbox" placeholder="撮影場所を検索！">
-    <input type="button" value="検索" onclick="codeAddress()">
-  </li>
 <% elsif current_page?(search_post_machinekoes_path) %>
 <!--まち猫検索結果画面のキーワード検索-->
   <li class="nav-item">
@@ -19,5 +13,17 @@
       <%= f.search_field :keyword, placeholder: "キーワードを入力！" %>
       <%= f.submit "検索" %>
     <% end %>
+  </li>
+<% elsif current_page?(new_post_machineko_path) %>
+<!--新規投稿の地名検索-->
+  <li class="nav-item">
+    <input id="address" type="textbox" placeholder="撮影場所を検索！">
+    <input type="button" value="検索" onclick="codeAddress()">
+  </li>
+<% elsif current_page?(post_machinekoes_map_path) %>
+<!--猫Mapの地名検索-->
+  <li class="nav-item">
+    <input id="address" type="textbox" placeholder="地名を検索！">
+    <input type="button" value="検索" onclick="codeAddress()">
   </li>
 <% end %>
