@@ -9,8 +9,11 @@ class PostMachineko < ApplicationRecord
     favorites.exists?(end_user_id: end_user.id)
   end
   
-  def get_image
-    image.variant(resize_to_limit: [640, 420]).processed
+  def get_image(width, height)
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    image.variant(resize_to_limit: [width, height]).processed
   end
-
 end
