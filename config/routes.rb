@@ -14,7 +14,6 @@ Rails.application.routes.draw do
       get 'end_users/withdrawal_check' => "end_users#withdrawal_check"
       patch 'end_users/withdrawal' => "end_users#withdrawal"
       get 'favorites/my_favorites' => "favorites#index"
-      
       resources :post_machinekoes do
         resource :favorites, only: [:create, :destroy]
         resources :post_comments, only: [:create, :destroy]

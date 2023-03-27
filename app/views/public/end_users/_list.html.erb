@@ -1,18 +1,19 @@
 <div class="card-list-container py-5">
   <% post_machinekoes.each do |post_machineko| %>
+  <% if post_machineko.end_user.is_deleted == false %>
   <div class="card w-50 mx-auto mt-4 shadow-lg">
-    <!--管理者ががログインしてる場合-->
+    <!--管理者ががログインしてる場合の投稿画像リンク先-->
     <% if admin_signed_in? %>
       <%= link_to admin_post_machineko_path(post_machineko.id) do %>
         <%= image_tag post_machineko.get_image(640,480), class:"card-img-top"; %>
       <% end %>
-    <!--それ以外の場合-->
+    <!--それ以外の場合のリンク先-->
     <% else %>
-      <%= link_to post_machineko_path(post_machineko.id) do %>
+      <%= link_to post_machineko_path(post_machineko.id), data:{ turbolinks: false } do %>
         <%= image_tag post_machineko.get_image(640,480), class:"card-img-top"; %>
       <% end %>
     <% end %>
-    <!--投稿情報-->
+    <!--その他投稿情報-->
     <div class="card-body">
       <div class="row">
         <div class="col-2">
@@ -38,13 +39,14 @@
             <%= render 'public/post_machinekoes/favorite', post_machineko: post_machineko %>
           <% else %>
             <!--エンドユーザーがログインしてない場合-->
-            <span>コメント件数：<%= post_machineko.post_comments.count %> | </span>
-            <span><%= post_machineko.favorites.count %>いいね</span>
+            <span><i class="fas fa-comment"></i><%= post_machineko.post_comments.count %>コメント | </span>
+            <span><i class="fas fa-heart"></i><%= post_machineko.favorites.count %>いいね</span>
           <% end %>
         </div>
       </div>
     </div>
   </div>
+  <% end %>
   <% end %>
   <!--ページネーション-->
   <%#= paginate post_machinekoes %>

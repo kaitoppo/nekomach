@@ -1,44 +1,48 @@
 <!--退会済アカウントのアナウンス-->
 <%= flash[:notice] %>
 
-<h2>新規ユーザー登録</h2>
 
-<%= form_with model: @end_user, url: end_user_registration_path do |f| %>
-  <%= render "public/shared/error_messages", resource: resource %>
-  <div class="field">
-    <%= f.label :（姓） %>
-    <%= f.text_field :last_name, autofocus: true %>
-    <%= f.label :（名） %>
-    <%= f.text_field :fast_name, autofocus: true %>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-10 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light p-4 mb-0">新規ユーザー登録</h5>
+      <div class="form-body p-4">
+        <!--エラー文-->
+        <%= render "public/shared/error_messages", resource: resource %>
+        
+        <!--登録フォーム-->
+        <%= form_with model: @end_user, url: end_user_registration_path do |f| %>
+          <p>氏名</p>
+          <div class="input-group mb-3">
+            <%= f.label :（姓） %>
+            <%= f.text_field :last_name, autofocus: true %>
+            <%= f.label :（名） %>
+            <%= f.text_field :fast_name, autofocus: true %>
+          </div>
+          <p>ニックネーム</p>
+          <div class="input-group mb-3">
+            <%= f.text_field :nick_name %>
+          </div>
+          <p>電話番号</p>
+          <div class="input-group mb-3">
+            <%= f.text_field :telephone_number %>
+          </div>
+          <p>Emメールアドレス</p>
+          <div class="input-group mb-3">
+            <%= f.email_field :email, autofocus: true %>
+          </div>
+          <p>パスワード</p>
+          <div class="input-group mb-3">
+            <%= f.password_field :password %>
+          </div>
+          <p>パスワード(確認用)</p>
+          <div class="input-group mb-3">
+            <%= f.password_field :password_confirmation %>
+          </div>
+          <div class="actions">
+            <%= f.submit "登録", class: 'btn btn-success' %>
+          </div>
+        <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :ニックネーム %>
-    <%= f.text_field :nick_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :電話番号 %>
-    <%= f.text_field :telephone_number %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :パスワード（６文字以上） %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label :パスワード（確認用） %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-<%= render "public/shared/links" %>
+</div>

@@ -26,22 +26,41 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
+              <%= render 'public/post_machinekoes/search_form' %>
               <% if end_user_signed_in? %>
               <!--エンドユーザーがログインしているとき-->
-              <%= render 'public/post_machinekoes/search_form' %>
                 <li class="nav-item">
                   <%= link_to end_users_my_page_path, class:'nav-link text-dark' do %>
-                    <%= current_end_user.nick_name %>さんのMyPage
+                    <span><i class="fas fa-home fa-lg"></i><%= current_end_user.nick_name %>さんのMyPage</span>
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to destroy_end_user_session_path, method: :delete, class:'nav-link text-dark' do %>
-                    ログアウト
+                  <span><i class="fas fa-running fa-lg"></i>ログアウト</span>
                   <% end %>
                 </li>
-
+                <li class="nav-item">
+                  <%= link_to new_post_machineko_path, class:"nav-link text-dark", data:{ turbolinks: false } do %>
+                    <span><i class="fas fa-camera-retro fa-lg"></i>投稿</span>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to root_path, class:"nav-link text-dark" do %>
+                    <span><i class="fas fa-cat fa-lg"></i>まち猫</span>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to favorites_my_favorites_path, class:"nav-link text-dark" do %>
+                    <span><i class="far fa-thumbs-up fa-lg"></i>お気に入り</span>
+                  <% end %>
+                </li>
               <% elsif admin_signed_in? %>
               　<!--管理者がログインしているとき-->
+                  <li class="nav-item">
+                    <%= link_to admin_end_users_path, class:'nav-link text-dark' do %>
+                      【管理者ユーザー】
+                   <% end %>
+                  </li>
                   <li class="nav-item">
                     <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-dark' do %>
                       ログアウト
@@ -62,23 +81,27 @@
                      コメント一覧
                    <% end %>
                   </li>
-                  <li class="nav-item">
-                    管理者アカウント
-                  </li>
                 <% else %>
                   <!--ログインしていないとき-->
                   <li class="nav-item">
                     <%= link_to new_end_user_registration_path, class:'nav-link text-dark' do %>
-                      新規登録
+                      <span><i class="fas fa-plus-circle fa-lg"></i>新規登録</span>
                     <% end %>
                   </li>
                   <li class="nav-item">
                     <%= link_to new_end_user_session_path, class:'nav-link text-dark' do %>
-                      ログイン
+                      <span><i class="fas fa-sign-in-alt fa-lg"></i>ログイン</span>
                     <% end %>
                   </li>
                   <li class="nav-item">
-                    ゲストユーザー
+                    <%= link_to new_end_user_session_path, class:'nav-link text-dark' do %>
+                      ゲストユーザー
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to root_path, class:"nav-link text-dark" do %>
+                      <span><i class="fas fa-cat fa-lg"></i>まち猫</span>
+                    <% end %>
                   </li>
                 <% end %>
             </ul>
@@ -95,7 +118,7 @@
         <div class="row no-gutters">
           <div class="col-md-4">
             <p>猫とmuchするSNS</p>
-            <%= image_tag('machineko_tag2.jpg') %>
+            <h2>ねこまち</h2>
           </div>
           <div class="col-md-8">
             <h6 class="text-white mt-2 mb-3">Link</h6>

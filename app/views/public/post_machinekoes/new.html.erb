@@ -1,8 +1,9 @@
 <div class="container">
   <div class="row no-gutters">
-    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+    <div class="col-md-4 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
       <h5 class="text-dark bg-light p-4 mb-0">新規投稿</h5>
       <div class="form-body p-4">
+        
         <!--エラー文-->
         <% if @post_machineko.errors.any? %>
           <ul class="alert alert-danger" role="alert">
@@ -14,104 +15,101 @@
             <% end %>
           </ul>
         <% end %>
+        
         <!--投稿フォーム-->
         <%= form_with model: @post_machineko, url: post_machinekoes_path, method: :post do |f| %>
+          <p>①画像・動画選択</p>
           <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+          <p>②コメント</p>
+          <div class="input-group mb-3 mt-4">
+            <%= f.text_area :caption, class:"form-control", rows:"3", placeholder:"コメントここに" %>
+          </div>
+          <p>③撮影場所の説明</p>
           <div class="input-group mb-3 mt-4">
             <div class="input-group-prepend">
               <span class="input-group-text" aria-hidden="true"><i class="fas fa-building"></i></span>
             </div>
-            <%= f.text_field :caption, class:"form-control", placeholder:"撮影場所" %>
+            <%= f.text_field :shot_address, class:"form-control", placeholder:"(例)××県××市××公園近く" %>
           </div>
-          <%= f.text_area :caption, class:"form-control", rows:"3", placeholder:"コメントここに" %>
+          <p>④撮影場所の位置情報</p>
+          <p>ページ上部の検索窓に地名を入力して、</p>
+          <p>撮影場所した場所にピン置きましょう！</p>
+          <div class="input-group mb-3 mt-4">
+            <%= f.text_field :latitude, :value =>"緯度", id: :lat %>
+            <%= f.text_field :longitude, :value =>"経度", id: :lng %>
+          </div>
           <hr>
           <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
         <% end %>
       </div>
     </div>
+    
+    <!--Googleマップを表示させるJS-->
+    <div class="col-md-8 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      
+      <div id="display"></div>
+      <div id='map'></div>
+      
+      <style>
+      #map {
+        height: 700px;
+        width: 100%;
+      }
+      </style>
+      
+       <script>
+       //初期MAP画面設定
+      let map
+      let marker
+      function initMap(){
+        geocoder = new google.maps.Geocoder()
+      
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 35.6803997, lng:139.7690174},
+          zoom: 15,
+        });
+      }
+      
+      //検索後のマップ作成
+      let geocoder
+      let aft
+      function codeAddress(){
+        let inputAddress = document.getElementById('address').value;
+        geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+          if (status == 'OK') {
+            //マーカーの複数NG
+            if (aft == true) {
+              marker.setMap(null);
+            }
+            //新規マーカーを作成
+            map.setCenter(results[0].geometry.location);
+                marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location,
+                draggable: true // ドラッグ可能にする
+            });
+      
+            //二度目以降かチェック
+            aft =true
+      
+            //検索した時に緯度経度を入力
+            document.getElementById('lat').value = results[ 0 ].geometry.location.lat();
+            document.getElementById('lng').value = results[ 0 ].geometry.location.lng();
+      
+            // マーカーのドラッグ終了時のイベント
+            google.maps.event.addListener( marker, 'dragend', function(ev){
+              // 引数evの、プロパティ.latLngが緯度経度
+              document.getElementById('lat').value = ev.latLng.lat();
+              document.getElementById('lng').value = ev.latLng.lng();
+            });
+          } else {
+            alert('該当する結果がありませんでした：' + status);
+          }
+        });
+      }
+      </script>
+       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAP_API_KEY'] %>&callback=initMap" async defer></script>
+    </div>
   </div>
 </div>
 
-
-
-
-<h2>新規まちねこ投稿</h2>
-  <%= form_with model: @post_machineko, url: post_machinekoes_path, method: :post do |f| %>
-    <div class="action">
-      <%= f.label :image,"画像・動画選択" %><br>
-        <%= f.file_field :image, accept: "image/*" %><br>
-      <%= f.label :caption,"キャプション" %><br>
-        <%= f.text_field :caption %><br>
-      <%= f.label :shot_address,"撮影場所" %><br>
-        <%= f.text_field :shot_address, placeholder: "例：〇〇駅の近く" %><br>
-        <%= f.text_field :latitude, :value =>"緯度", id: :lat %>
-        <%= f.text_field :longitude, :value =>"経度", id: :lng %>
-      <%= f.submit %>
-    </div>
-  <% end %>
-
-<!--検索結果を表示させるためのディスプレイ-->
-<div id="display"></div>
-
- <!--Google MAPを表示させる-->
- <div id='map'></div>
-
-<style>
-#map {
-  height: 600px;
-  width: 100%;
-}
-</style>
-
- <script>
- //初期MAP画面設定
-let map
-let marker
-function initMap(){
-  geocoder = new google.maps.Geocoder()
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.6803997, lng:139.7690174},
-    zoom: 15,
-  });
-}
-
-//検索後のマップ作成
-let geocoder
-let aft
-function codeAddress(){
-  let inputAddress = document.getElementById('address').value;
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-      //マーカーの複数NG
-      if (aft == true) {
-        marker.setMap(null);
-      }
-      //新規マーカーを作成
-      map.setCenter(results[0].geometry.location);
-          marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-          draggable: true // ドラッグ可能にする
-      });
-
-      //二度目以降かチェック
-      aft =true
-
-      //検索した時に緯度経度を入力
-      document.getElementById('lat').value = results[ 0 ].geometry.location.lat();
-      document.getElementById('lng').value = results[ 0 ].geometry.location.lng();
-
-      // マーカーのドラッグ終了時のイベント
-      google.maps.event.addListener( marker, 'dragend', function(ev){
-        // 引数evの、プロパティ.latLngが緯度経度
-        document.getElementById('lat').value = ev.latLng.lat();
-        document.getElementById('lng').value = ev.latLng.lng();
-      });
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  });
-}
-</script>
- <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAP_API_KEY'] %>&callback=initMap" async defer></script>
