@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h2><%= @end_user.last_name %><%= @end_user.fast_name %>さんの会員情報編集</h2>
+            <h2><%= @end_user.last_name %><%= @end_user.fast_name %>さんのユーザー情報編集</h2>
             <%= form_with model: @end_user, url: admin_end_user_path(@end_user),method: :patch, local:true do |f| %>
                 <table class="table">
                     <tr>
