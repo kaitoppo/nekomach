@@ -16,7 +16,7 @@ class Public::PostMachinekoesController < ApplicationController
   end
 
   def index
-    @post_machinekoes = PostMachineko.all.order(created_at: :desc)
+    @post_machinekoes = PostMachineko.order(created_at: :desc).page(params[:page])
   end
 
   def show
