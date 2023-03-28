@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   }
     scope module: :public do
       root to: "post_machinekoes#index"
-      get 'post_machinekoes/map' => "post_machinekoes#map"
       get 'end_users/my_page' => "end_users#show"
       get 'end_users/information/edit' => "end_users#edit"
       patch 'end_users/information' => "end_users#update"
@@ -19,7 +18,7 @@ Rails.application.routes.draw do
         resources :post_comments, only: [:create, :destroy]
         collection do
           get 'search'
-        end  
+        end
       end
     end
 

@@ -45,15 +45,12 @@ class Public::PostMachinekoesController < ApplicationController
 
   def search
     if params[:keyword].present?
-      @post_machinekoes = PostMachineko.where('caption like ? ', "%#{params[:keyword]}%").or(PostMachineko.where('shot_address like ? ', "%#{params[:keyword]}%"))
+      post_machineko_result = PostMachineko.where('caption like ? ', "%#{params[:keyword]}%").or(PostMachineko.where('shot_address like ? ', "%#{params[:keyword]}%"))
+      @post_machinekoes = post_machineko_result.order(created_at: :desc).page(params[:page])
       @keyword = params[:keyword]
     else
-      @post_machinekoes = PostMachineko.all
+      @post_machinekoes = PostMachineko.order(created_at: :desc).page(params[:page])
     end
-  end
-
-  def map
-    @post_machinekoes = PostMachineko.all
   end
 
   private

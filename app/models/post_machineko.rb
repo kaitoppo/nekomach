@@ -1,7 +1,7 @@
 class PostMachineko < ApplicationRecord
   has_one_attached :image
 
-  belongs_to :end_user
+  belongs_to :end_user, optional: true
   has_many :post_comments, -> { joins(:end_user).where('end_users.is_deleted = ?', false) }, dependent: :destroy
   has_many :favorites, -> { joins(:end_user).where('end_users.is_deleted = ?', false) }, dependent: :destroy
 

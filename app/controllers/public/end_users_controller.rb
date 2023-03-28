@@ -2,7 +2,7 @@ class Public::EndUsersController < ApplicationController
 before_action :authenticate_end_user!
   def show
     @end_user = current_end_user
-    @post_machinekoes = @end_user.post_machinekoes.order(created_at: :desc)
+    @post_machinekoes = @end_user.post_machinekoes.order(created_at: :desc).page(params[:page])
   end
 
   def edit
