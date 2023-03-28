@@ -16,7 +16,7 @@ class Public::PostMachinekoesController < ApplicationController
   end
 
   def index
-    @post_machinekoes = PostMachineko.all
+    @post_machinekoes = PostMachineko.all.order(created_at: :desc)
   end
 
   def show
@@ -27,7 +27,7 @@ class Public::PostMachinekoesController < ApplicationController
   def edit
     @post_machineko = PostMachineko.find(params[:id])
   end
-  
+
   def update
     @post_machineko = PostMachineko.find(params[:id])
     if @post_machineko.update(post_machineko_params)
@@ -61,5 +61,5 @@ class Public::PostMachinekoesController < ApplicationController
   def post_machineko_params
     params.require(:post_machineko).permit(:shot_address, :caption, :image,:latitude, :longitude)
   end
-  
+
 end

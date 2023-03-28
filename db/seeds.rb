@@ -10,3 +10,4 @@ Admin.create!(
     email: 'test@email.com',
     password: 'nekomachi',
 )
+

@@ -24,8 +24,8 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown" >
+            <ul class="navbar-nav ml-auto ">
               <%= render 'public/post_machinekoes/search_form' %>
               <% if end_user_signed_in? %>
               <!--エンドユーザーがログインしているとき-->
@@ -56,54 +56,54 @@
                 </li>
               <% elsif admin_signed_in? %>
               　<!--管理者がログインしているとき-->
-                  <li class="nav-item">
-                    <%= link_to admin_end_users_path, class:'nav-link text-dark' do %>
-                      【管理者ユーザー】
-                   <% end %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-dark' do %>
-                      ログアウト
-                    <% end %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to admin_end_users_path, class:'nav-link text-dark' do %>
-                      ユーザ一覧
-                   <% end %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to admin_post_machinekoes_path, class: 'nav-link text-dark' do %>
-                      まちねこ一覧
-                    <% end %>
-                  </li>
-                  <li class="nav-item">
-                   <%= link_to admin_post_comments_path, class:'nav-link text-dark' do%>
-                     コメント一覧
-                   <% end %>
-                  </li>
-                <% else %>
-                  <!--ログインしていないとき-->
-                  <li class="nav-item">
-                    <%= link_to new_end_user_registration_path, class:'nav-link text-dark' do %>
-                      <span><i class="fas fa-plus-circle fa-lg"></i>新規登録</span>
-                    <% end %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to new_end_user_session_path, class:'nav-link text-dark' do %>
-                      <span><i class="fas fa-sign-in-alt fa-lg"></i>ログイン</span>
-                    <% end %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to new_end_user_session_path, class:'nav-link text-dark' do %>
-                      ゲストユーザー
-                    <% end %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to root_path, class:"nav-link text-dark" do %>
-                      <span><i class="fas fa-cat fa-lg"></i>まち猫</span>
-                    <% end %>
-                  </li>
-                <% end %>
+                <li class="nav-item">
+                  <%= link_to admin_end_users_path, class:'nav-link text-dark' do %>
+                    【管理者ユーザー】
+                 <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-dark' do %>
+                    ログアウト
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to admin_end_users_path, class:'nav-link text-dark' do %>
+                    ユーザ一覧
+                 <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to admin_post_machinekoes_path, class: 'nav-link text-dark' do %>
+                    まちねこ一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                 <%= link_to admin_post_comments_path, class:'nav-link text-dark' do%>
+                   コメント一覧
+                 <% end %>
+                </li>
+              <% else %>
+                <!--ログインしていないとき-->
+                <li class="nav-item">
+                  <%= link_to new_end_user_registration_path, class:'nav-link text-dark' do %>
+                    <span><i class="fas fa-plus-circle fa-lg"></i>新規登録</span>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_end_user_session_path, class:'nav-link text-dark' do %>
+                    <span><i class="fas fa-sign-in-alt fa-lg"></i>ログイン</span>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_end_user_session_path, class:'nav-link text-dark' do %>
+                    ゲストユーザー
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to root_path, class:"nav-link text-dark" do %>
+                    <span><i class="fas fa-cat fa-lg"></i>まち猫</span>
+                  <% end %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>
