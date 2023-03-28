@@ -16,6 +16,6 @@ class Public::FavoritesController < ApplicationController
 
   def index
     favorites = Favorite.where(end_user_id: current_end_user.id).pluck(:post_machineko_id)
-    @post_machinekoes = PostMachineko.order(created_at: :desc).find(favorites)
+    @post_machinekoes = Kaminari.paginate_array(PostMachineko.order(created_at: :desc).find(favorites)).page(params[:page])
   end
 end
