@@ -39,5 +39,4 @@
 - IDE：Cloud9
 
 ## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
-- 使用しない場合は、使用素材の項目をREADMEから削除してください。
+ねこ画像( https://www.photo-ac.com/main/search?q=%E9%87%8E%E8%89%AF%E7%8C%AB&srt=dlrank&qt=&p=1&pt=C )
