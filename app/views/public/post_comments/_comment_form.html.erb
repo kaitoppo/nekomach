@@ -1,0 +1,6 @@
+<div id="new-comment-form" >
+  <%= form_with model: [post_machineko, post_comment], local: false do |f| %>
+    <%= f.text_area :comment, :size=>"70x2", placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>

@@ -34,7 +34,7 @@
           </span>
           <!--エンドユーザーがログインしてる場合のいいね機能＆コメント件数-->
           <% if current_end_user %>
-            <span><i class="fas fa-comment"></i><%= link_to "#{post_machineko.post_comments.count} コメント", post_machineko_path(post_machineko.id), class:"text-dark" %> | <span>
+            <span><i class="fas fa-comment"></i><%= link_to "#{post_machineko.post_comments.count} コメント", post_machineko_path(post_machineko.id), class:"text-dark" %> | </span>
             <!--いいね機能-->
             <%= render 'public/post_machinekoes/favorite', post_machineko: post_machineko %>
           <% else %>
