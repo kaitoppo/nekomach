@@ -1,1 +1,1 @@
-$("#card-favorited").html("<%= j(render 'public/post_machinekoes/favorite', post_machineko: @post_machineko) %>");
+$("#favorite-btn_<%= @post_machineko.id %>").html("<%= j(render 'public/post_machinekoes/favorite', post_machineko: @post_machineko) %>");

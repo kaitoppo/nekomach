@@ -16,14 +16,21 @@
               </p>
               <p class="card-text"><%= @post_machineko.caption %></p>
               <span><i class="fa fa-calendar"></i><%= @post_machineko.created_at.strftime('%Y/%m/%d') %> | </span>
-              <span><i class="fas fa-comment"></i><%= @post_machineko.post_comments.count %>コメント | <span>
+              <span>
+                <i class="fas fa-comment"></i>
+                <span id="comments-count_<%= @post_machineko.id %>">
+                  <%= @post_machineko.post_comments.count %>
+                </span>コメント | 
+              </span>
               <!--いいね機能-->
-              <%= render 'favorite', post_machineko: @post_machineko %>
-              <% if @post_machineko.end_user == current_end_user %>
-                 | <i class="fas fa-edit"></i><%= link_to "投稿の編集",  edit_post_machineko_path(@post_machineko) %>
-              <% end %>
+              <span id="favorite-btn_<%= @post_machineko.id %>"><%= render 'favorite', post_machineko: @post_machineko %></span>
+              <span>
+                <% if @post_machineko.end_user == current_end_user %>
+                   | <i class="fas fa-edit"></i><%= link_to "投稿の編集",  edit_post_machineko_path(@post_machineko) %>
+                <% end %>
+              </span>
             </div>
-       　 </div>
+       　  </div>
           <hr>
           <h5>
             <strong><i class="far fa-flag"></i><span><%= @post_machineko.shot_address %></span></strong>
@@ -63,11 +70,13 @@
           </script>
           <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAP_API_KEY'] %>&callback=initMap" async defer></script>
           <hr>
-          <!--コメントフォーム-->
+          <!--新規コメントフォーム-->
           <%= render 'public/post_comments/comment_form', post_machineko: @post_machineko, post_comment: @post_comment %>
           <hr>
           <!--コメント一覧-->
-          <%= render 'public/post_comments/comment', post_machineko: @post_machineko %>
+          <div id="comments_area">
+            <%= render 'public/post_comments/comment', post_machineko: @post_machineko %>
+          </div>
         </div>
       </div>
     </div>

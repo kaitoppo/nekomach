@@ -1,13 +1,9 @@
 <% if post_machineko.favorited_by?(current_end_user) %>
-  <span id="card-favorited">
-    <%= link_to post_machineko_favorites_path(post_machineko), method: :delete, remote: true do %>
-      <i class="fas fa-heart"></i><%= post_machineko.favorites.count %>いいね
-    <% end %>
-  </span>
+  <%= link_to post_machineko_favorites_path(post_machineko), method: :delete, remote: true do %>
+    <i class="fas fa-heart"></i><%= post_machineko.favorites.count %>いいね
+  <% end %>
 <% else %>
-  <span id="card-favorited">
-    <%= link_to post_machineko_favorites_path(post_machineko), method: :post, remote: true do %>
-      <i class="far fa-heart"></i><%= post_machineko.favorites.count %>いいね
-    <% end %>
-  </span>
+  <%= link_to post_machineko_favorites_path(post_machineko), method: :post, remote: true do %>
+    <i class="far fa-heart"></i><%= post_machineko.favorites.count %>いいね
+  <% end %>
 <% end %>

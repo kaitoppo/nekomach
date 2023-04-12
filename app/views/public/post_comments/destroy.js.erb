@@ -1,3 +1,3 @@
+$("#comments-count_<%= @post_machineko.id %>").html("<%= @post_machineko.post_comments.count %>");
 $("#comments_area").html("<%= j(render 'public/post_comments/comment', post_machineko: @post_machineko) %>");
-$("#new-comment-form).html("<%= j(render 'public/post_comments/comment_form', post_machineko: @post_machineko, post_comment: @post_comment) %>");
-$("textarea").val('');
+$("#post_comment_comment").val('');
