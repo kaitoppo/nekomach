@@ -2,43 +2,41 @@
   <div class="row">
     <div class="col">
       <h2>コメント一覧</h2>
-        <table class="table">
-          <thead>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ユーザーID</th>
+            <th>登録日</th>
+            <th>ユーザー名</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @post_comments.each do |post_comment| %>
+          <tr>
             <tr>
-              <th>ユーザーID</th>
-              <th>登録日</th>
-              <th>ユーザー名</th>
-              <th>ステータス</th>
+              <th><%= post_comment.end_user.id %></th>
+              <th>
+                <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+              </th>
+              <th>
+                <%= link_to admin_end_user_path(post_comment.end_user) do %>
+                  <%= post_comment.end_user.last_name %><%= post_comment.end_user.fast_name %>
+                <% end %>
+              </th>
+              <th><%= post_comment.end_user.is_deleted ? '退会' : '有効' %></th>
             </tr>
-          </thead>
-
-          <tbody>
-            <% @post_comments.each do |post_comment| %>
-            <tr>
-              <tr>
-                <th><%= post_comment.end_user.id %></th>
-                <th>
-                  <%= post_comment.created_at.strftime('%Y/%m/%d') %>
-                </th>
-                <th>
-                  <%= link_to admin_end_user_path(post_comment.end_user) do %>
-                    <%= post_comment.end_user.last_name %><%= post_comment.end_user.fast_name %>
-                  <% end %>
-                </th>
-                <th><%= post_comment.end_user.is_deleted ? '退会' : '有効' %></th>
-              </tr>
-              <tr bgcolor="#fff8dc" >
-                <th>コメントID：<%= post_comment.id %></th>
-                <th>本文：[<%= post_comment.comment %>]</th>
-                <th><%= link_to "コメント削除", admin_post_comment_path(post_comment), class:'btn btn-danger mb-2 mx-2 px-4', method: :delete %></th>
-                <th><%= link_to "コメント元の投稿",admin_post_machineko_path(post_comment.post_machineko) %></th>
-              </tr>
-
+            <tr bgcolor="#fff8dc" >
+              <th>コメントID：<%= post_comment.id %></th>
+              <th>本文：[<%= post_comment.comment %>]</th>
+              <th><%= link_to "コメント削除", admin_post_comment_path(post_comment), class:'btn btn-danger mb-2 mx-2 px-4', method: :delete %></th>
+              <th><%= link_to "コメント元の投稿",admin_post_machineko_path(post_comment.post_machineko) %></th>
             </tr>
-            <% end %>
-          </tbody>
-        </table>
-          <%#= paginate @customers %>
-        </div>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+        <%#= paginate @customers %>
     </div>
+  </div>
 </div>

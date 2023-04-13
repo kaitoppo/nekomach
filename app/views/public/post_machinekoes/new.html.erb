@@ -3,7 +3,6 @@
     <div class="col-md-4 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
       <h5 class="text-dark bg-light p-4 mb-0">新規投稿</h5>
       <div class="form-body p-4">
-        
         <!--エラー文-->
         <% if @post_machineko.errors.any? %>
           <ul class="alert alert-danger" role="alert">
@@ -15,7 +14,6 @@
             <% end %>
           </ul>
         <% end %>
-        
         <!--投稿フォーム-->
         <%= form_with model: @post_machineko, url: post_machinekoes_path, method: :post do |f| %>
           <p>①画像・動画選択</p>
@@ -43,20 +41,16 @@
         <% end %>
       </div>
     </div>
-    
     <!--Googleマップを表示させるJS-->
     <div class="col-md-8 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
-      
       <div id="display"></div>
       <div id='map'></div>
-      
       <style>
       #map {
         height: 700px;
         width: 100%;
       }
       </style>
-      
        <script>
        //初期MAP画面設定
       let map
@@ -69,7 +63,6 @@
           zoom: 15,
         });
       }
-      
       //検索後のマップ作成
       let geocoder
       let aft
@@ -88,14 +81,11 @@
                 position: results[0].geometry.location,
                 draggable: true // ドラッグ可能にする
             });
-      
             //二度目以降かチェック
             aft =true
-      
             //検索した時に緯度経度を入力
             document.getElementById('lat').value = results[ 0 ].geometry.location.lat();
             document.getElementById('lng').value = results[ 0 ].geometry.location.lng();
-      
             // マーカーのドラッグ終了時のイベント
             google.maps.event.addListener( marker, 'dragend', function(ev){
               // 引数evの、プロパティ.latLngが緯度経度
@@ -108,8 +98,7 @@
         });
       }
       </script>
-       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAP_API_KEY'] %>&callback=initMap" async defer></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAP_API_KEY'] %>&callback=initMap" async defer></script>
     </div>
   </div>
 </div>
-

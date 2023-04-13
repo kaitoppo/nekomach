@@ -1,7 +1,6 @@
 <!--退会済アカウントのアナウンス-->
 <%= flash[:notice] %>
 
-
 <div class="container">
   <div class="row no-gutters">
     <div class="col-md-10 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
@@ -9,7 +8,6 @@
       <div class="form-body p-4">
         <!--エラー文-->
         <%= render "public/shared/error_messages", resource: resource %>
-        
         <!--登録フォーム-->
         <%= form_with model: @end_user, url: end_user_registration_path do |f| %>
           <p>氏名</p>
