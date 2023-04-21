@@ -45,4 +45,4 @@ URL→ https://drive.google.com/drive/folders/1XHnpvFc-8VjTQKA-OMsVq-BlspO4Udf4?
 - IDE：Cloud9
 
 ## 使用素材
-ねこ画像( https://www.photo-ac.com/main/search?q=%E9%87%8E%E8%89%AF%E7%8C%AB&srt=dlrank&qt=&p=1&pt=C )
+ねこ画像. ( https://www.photo-ac.com/main/search?q=%E9%87%8E%E8%89%AF%E7%8C%AB&srt=dlrank&qt=&p=1&pt=C )
